@@ -469,9 +469,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // Godparents functionality
+  
   document.addEventListener('DOMContentLoaded', function() {
-    // Add godparent
     document.getElementById('addGodparent').addEventListener('click', function(e) {
       e.preventDefault();
       const container = document.getElementById('godparentsContainer');
@@ -493,7 +492,6 @@
       });
     });
 
-    // Remove godparent
     document.querySelectorAll('.remove-godparent').forEach(btn => {
       btn.addEventListener('click', function() {
         if (document.querySelectorAll('.godparent-row').length > 1) {
@@ -504,7 +502,6 @@
       });
     });
 
-    // Format dates for display in review section
     function formatDateForDisplay(dateString) {
       if (!dateString) return '';
       const date = new Date(dateString);
@@ -514,10 +511,8 @@
         day: '2-digit'
       });
     }
-
-    // Update the showReview function to use the formatted dates
     window.showReview = function() {
-      // Basic fields
+     
       document.getElementById("reviewFullName").innerText = document.getElementById("childFullName").value;
       document.getElementById("reviewDOB").innerText = formatDateForDisplay(document.getElementById("dob").value);
       document.getElementById("reviewPOB").innerText = document.getElementById("pob").value;
@@ -529,11 +524,9 @@
       document.getElementById("reviewMotherName").innerText = document.getElementById("motherName").value;
       document.getElementById("reviewEmail").innerText = document.getElementById("email").value;
       
-      // Godparents
       const godparents = Array.from(document.querySelectorAll('.godparent-name')).map(gp => gp.value);
       document.getElementById("reviewSponsors").innerText = godparents.join(', ');
 
-      // Show review section
       document.getElementById("requestFormSection").style.display = "none";
       document.getElementById("reviewSection").style.display = "block";
     }
@@ -544,7 +537,6 @@
     const requiredFields = form.querySelectorAll('[required]');
     let isValid = true;
 
-    // Reset validation
     form.classList.remove('was-validated');
     requiredFields.forEach(field => {
       field.classList.remove('is-invalid');
@@ -554,7 +546,6 @@
       }
     });
 
-    // Validate all required fields
     requiredFields.forEach(field => {
       if (!field.value.trim()) {
         field.classList.add('is-invalid');
@@ -565,7 +556,6 @@
         isValid = false;
       }
       
-      // Special validation for email
       if (field.type === 'email' && field.value.trim()) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(field.value)) {
@@ -579,7 +569,6 @@
       }
     });
 
-    // Validate godparents
     const godparents = document.querySelectorAll('.godparent-name');
     let godparentsValid = true;
     godparents.forEach(gp => {
@@ -593,7 +582,6 @@
       isValid = false;
     }
 
-    // Validate terms checkbox
     const agreeTerms = document.getElementById('agreeTerms');
     if (!agreeTerms.checked) {
       const feedback = agreeTerms.nextElementSibling.nextElementSibling;
@@ -613,7 +601,6 @@
       }
     }
     
-    // Prevent modal from showing when validation fails
     return false;
   }
 
@@ -623,17 +610,15 @@
   }
 
   function submitRequest() {
-    // Show confirmation
+
     document.getElementById('overlay').style.display = 'block';
     document.getElementById('confirmationCard').style.display = 'block';
     
-    // Reset form after 3 seconds (simulating submission)
     setTimeout(() => {
       document.getElementById('requestFormSection').style.display = 'block';
       document.getElementById('reviewSection').style.display = 'none';
       document.getElementById('baptismalForm').reset();
       
-      // Clear godparents (except first one)
       const container = document.getElementById('godparentsContainer');
       while (container.children.length > 1) {
         container.removeChild(container.lastChild);
